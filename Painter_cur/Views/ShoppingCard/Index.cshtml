@@ -1,0 +1,184 @@
+﻿@using Painter_cur.ViewModels
+
+@model ShoppingCardViewModel
+@{
+    ViewBag.Title = "Состав корзины";
+}
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $(".RemoveLink").click(function () {
+
+            var recordToDelete = $(this).attr("data-id");
+            if (recordToDelete != '') {
+                // Perform the ajax post
+                $.post("/ShoppingCard/ClearCartPos", { "p_art": recordToDelete },
+                    function (data) {
+                        if (data.totalCount == 0) {
+                            location.reload();
+                        }
+                        else {
+                            $('#row-' + data.deleteP_art).fadeOut('slow');
+                        }
+
+                        $('#cart-kol').text(data.totalCount + " шт.");
+                        $('#cart-status').text(data.totalCount);
+                        $('#cart-total').text(data.totalSum+" руб.");
+                    });
+            }
+        });
+
+
+        $('.minus_kol').click(function () {
+
+            var recordToDelete = $(this).attr("data-id");
+            if (recordToDelete != '') {
+                
+                $.post("/ShoppingCard/RemoveFromCart", { "p_art": recordToDelete },
+                    function (data) {
+                        if (data.totalCount == 0) {
+                            location.reload();
+                        }
+                            if (data.posCount == 0) {
+                                $('#row-' + data.deleteP_art).fadeOut('slow');
+                            }
+                         else {
+                            $('#item-count-' + data.deleteP_art).val(data.posCount);
+                        }
+
+                        $('#cart-kol').text(data.totalCount + " шт.");
+                        $('#cart-status').text(data.totalCount);
+                       
+                        $('#cart-total').text(data.totalSum + " руб.");
+                    });
+            }
+        });
+
+
+        $('.plus_kol').click(function () {
+
+            var recordToinc = $(this).attr("data-id");
+            if (recordToinc != '') {
+
+                $.post("/ShoppingCard/AddOneToCart", { "p_art": recordToinc },
+                    function (data) {
+                        $('#item-count-' + data.deleteP_art).val(data.posCount);
+                        $('#cart-kol').text(data.totalCount + " шт.");
+                        $('#cart-status').text(data.totalCount);
+                        $('#cart-total').text(data.totalSum + " руб.");
+                    });
+            }
+        });
+
+        $('.clear_bask').click(function () {
+
+            $.post("/ShoppingCard/ClearCart", { },
+                    function (data) {
+                        location.reload();
+
+                    });
+            
+        });
+
+    });
+</script>
+
+
+@{ 
+    var positions = Model.BaskPositions;
+}
+
+<div class="bask_content">
+<div class="table_bask">
+    <div class="bask_table">
+        @for (int i = 0; i < Model.BaskProducts.Count; i++)
+        {
+            <div id="row-@Model.BaskProducts[i].P_art" class="prod_row">
+                <div class="img_bask_td">
+                    <a asp-controller="Store" asp-action="Deteils" asp-route-p_art="@Model.BaskProducts[i].P_art">
+                        <figure>
+                            <img src="/@Model.BaskProducts[i].P_img" width="96" height="96" alt="">
+                        </figure>
+                    </a>
+                </div>
+                <div class="inf_prod_td">
+                    <div>
+                        <span class="name_prod">@Model.BaskProducts[i].P_name</span>
+                        <span>@Model.BaskProducts[i].P_price руб.</span>
+                    </div>
+                </div>
+                <div class="kol_td">
+                    <div class="plus_minus_box">
+                        <a href="#" class="minus_kol" data-id="@Model.BaskProducts[i].P_art">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path fill-rule="evenodd" d="M3.5 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div>
+                        <input disabled style="background:white;  border: 1px solid #e7e7e7; border-radius:2px" id="item-count-@Model.BaskProducts[i].P_art" class="kol_span" value="@positions[i].quantity" />
+                    </div>
+                    <div class="plus_minus_box">
+                        <a href="#" class="plus_kol" data-id="@Model.BaskProducts[i].P_art">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
+                                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            </svg>
+                        </a> </div> <div class="plus_minus_box" style="margin-left:10px;"> шт.</div>
+                    </div>
+                    <div class="del_td">
+                        <a href="#" class="RemoveLink" data-id="@Model.BaskProducts[i].P_art">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+        }
+        @if (Model.TotalCount != 0) {
+        <div><a class="clear_bask" href="#">Очистить корзину</a></div>
+        }
+    </div>
+    </div>
+
+    <div class="total_box">
+
+        @if (Model.TotalCount == 0)
+            {
+        <div id="empty_bask">
+            <span style="color: darkgray; font: 17px; font-family: 'Conv_AmaticSC-Regular';">Корзина пока пуста :( </span>
+            <br />
+            <a asp-action="Browse" asp-controller="Store"> Отправиться за покупками </a>
+        </div>
+}
+        else
+{
+
+        <div id="non-emty">
+            <span class="total">Товаров в корзине:</span>
+            <span id="cart-kol">
+                @Model.TotalCount шт.
+            </span>
+            <span class="total">Итого к оплате:</span>
+            <span id="cart-total">
+                @Model.TotalSum руб.
+            </span>
+
+            <form asp-action="Payment" asp-controller="Checkout" method="get">
+
+                <button class="add_bask_but" type="submit">
+                    Оформить заказ
+                </button>
+            </form>
+        </div>
+}
+    </div>
+    </div>

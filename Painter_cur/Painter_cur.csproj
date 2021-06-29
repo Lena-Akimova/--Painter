@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <UserSecretsId>38378954-ac07-4c7e-918b-d461395ffe83</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Пользователь\source\repos\Painter_cur\Painter_cur\Painter_cur.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\images\06023eef8de011bf4ac279f22fb4feab.jpg" />
+    <None Include="wwwroot\images\8586ab511cdbd9b1b1cedbf5ffb6446e.jpg" />
+    <None Include="wwwroot\images\acrluch12.PNG" />
+    <None Include="wwwroot\images\acrluch6.PNG" />
+    <None Include="wwwroot\images\acvalad.jpg" />
+    <None Include="wwwroot\images\acvasonet.jpg" />
+    <None Include="wwwroot\images\batgamm5.jpg" />
+    <None Include="wwwroot\images\batluch8.jpg" />
+    <None Include="wwwroot\images\brsin.jpg" />
+    <None Include="wwwroot\images\d18767714242l.jpg" />
+    <None Include="wwwroot\images\d29727326182l.jpg" />
+    <None Include="wwwroot\images\d59315144482l.jpg" />
+    <None Include="wwwroot\images\d67623509784l.jpg" />
+    <None Include="wwwroot\images\d9891980382u_0.jpg" />
+    <None Include="wwwroot\images\g33425610882.jpg" />
+    <None Include="wwwroot\images\g50381946352.jpg" />
+    <None Include="wwwroot\images\g51902957312.jpg" />
+    <None Include="wwwroot\images\g51903069862.jpg" />
+    <None Include="wwwroot\images\g53302202852.jpg" />
+    <None Include="wwwroot\images\g59315267792.jpg" />
+    <None Include="wwwroot\images\g68210203224.jpg" />
+    <None Include="wwwroot\images\gu12son.PNG" />
+    <None Include="wwwroot\images\gugamm1.jpg" />
+    <None Include="wwwroot\images\gugamm1l.jpg" />
+    <None Include="wwwroot\images\guluch9.jpg" />
+    <None Include="wwwroot\images\icons\checkmark.png" />
+    <None Include="wwwroot\images\icons\copyr.png" />
+    <None Include="wwwroot\images\icons\f954853e6e405e86a441f1bc1ca40447.jpg" />
+    <None Include="wwwroot\images\icons\fiveico.ico" />
+    <None Include="wwwroot\images\icons\lab2.jpg" />
+    <None Include="wwwroot\images\icons\ryba.jpg" />
+    <None Include="wwwroot\images\icons\twitter.png" />
+    <None Include="wwwroot\images\icons\vk-circled.png" />
+    <None Include="wwwroot\images\icons\икона.jpg" />
+    <None Include="wwwroot\images\IMG_2420.gif" />
+    <None Include="wwwroot\images\maslad8.jpg" />
+    <None Include="wwwroot\images\masson12.PNG" />
+    <None Include="wwwroot\images\papacv.jpg" />
+    <None Include="wwwroot\images\papacva3.jpg" />
+    <None Include="wwwroot\images\papmas.jpg" />
+    <None Include="wwwroot\images\papmasa4.jpg" />
+    <None Include="wwwroot\images\pappast.jpg" />
+    <None Include="wwwroot\images\pappasta4.jpg" />
+    <None Include="wwwroot\images\pastgamm12.jpg" />
+    <None Include="wwwroot\images\pastson12.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
+  </ItemGroup>
+
+</Project>

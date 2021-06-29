@@ -1,0 +1,117 @@
+﻿@using Painter_cur.Models
+
+@{
+    ViewData["Title"] = "О товаре";
+}
+
+@model Product
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $(".add_bask_but").click(function () {
+            var kol = $("input[name='kol']").val();
+            var part = $("input[name='p_art']").val();
+
+                $.post("/ShoppingCard/AddToCart", { "p_art": part ,"kol": kol },
+                    function (data) {
+                        $("#adding_lab").text('+' + kol);
+                        $("#adding_lab").fadeIn("fast");
+                        $("#adding_lab").fadeOut("slow");
+                            $('#cart-status').text(data.totalCount);
+                    });
+        });
+    });
+</script>
+
+<table class="product_data">
+    <tr>
+        <td width=800>
+            <div class="det_img"><img src="/@Model.P_img" alt="" width="500"></div>
+        </td>
+        <td valign="top">
+            <div class="name_det">
+                <h2>@Model.P_name</h2>
+                <span>Арт: @Model.P_art</span>
+            </div>
+            <div class="price_det">
+                @Model.P_price руб
+            </div>
+
+                <input type="hidden" value="@Model.P_art" name="p_art">
+                <div class="quant_det">
+                    <span>Кол-во:</span><input type="number" value="1" min="1" max="100" step="1" name="kol" />
+                </div>
+
+                <div class="butt_bask_add">
+                    <button class="add_bask_but" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-basket2-fill2" viewBox="0 -1 16 16">
+                            <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z" />
+                        </svg>  Добавить в корзину
+                    </button>
+                    <div id="adding_lab" style="display:none; color:forestgreen; font-size:25px;">
+                     </div>
+                </div>
+
+            <div class="char_det">
+                <h2>Характеристики</h2>
+                <ul>
+                    <li><span>Производитель :</span> @Model.P_prod</li>
+                    @switch (Model.P_categ)
+                    {
+                        case "Paints":
+
+                            <li>
+                                <span>Тип :</span> @ViewBag.KonkProd.pai_type
+                            </li>
+                            <li>
+                                <span>Цвет :</span> @ViewBag.KonkProd.pai_color @if (ViewBag.KonkProd.pai_color != "colored")
+                                {<div class="square" style=" background-color:@ViewBag.KonkProd.pai_color;"></div>}
+                            </li>
+                            <li>
+                                <span>Объем :</span> @ViewBag.KonkProd.pai_volume мл
+                            </li>
+                            <li>
+                                <span>Количество :</span> @ViewBag.KonkProd.pai_quant шт.
+                            </li>
+                            break;
+
+                        case "Brushes":
+                            <li>
+                                <span>Материал :</span> @ViewBag.KonkProd.b_mater
+                            </li>
+                            <li>
+                                <span>Номер :</span> @ViewBag.KonkProd.b_numb
+                            </li>
+                            <li>
+                                <span>Форма :</span> @ViewBag.KonkProd.b_form
+                            </li>
+                            break;
+                        case "Papers":
+                            <li>
+                                <span>Тип :</span> @ViewBag.KonkProd.pap_type
+                            </li>
+                            <li>
+                                <span>Формат :</span> @ViewBag.KonkProd.pap_format
+                            </li>
+                            <li>
+                                <span>Объем :</span> @ViewBag.KonkProd.pap_density г/кв. м
+                            </li>
+                            break;
+                        case "Implements":
+                            <li>
+                                <span>Тип :</span> @ViewBag.KonkProd.i_type
+                            </li>
+                            break;
+                    }
+
+                </ul>
+                <div class="back" style="margin-top:30px; margin-left:0px;">
+                    <a asp-controller="Store" asp-action="Browse" asp-route-categ="@ViewData["Category"]"> Товары этой же категории </a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

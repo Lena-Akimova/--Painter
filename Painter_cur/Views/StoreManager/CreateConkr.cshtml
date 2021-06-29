@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Painter_cur.Models.Product
+
+@{
+    ViewData["Title"] = "Добавить новый";
+}
+
+
+
+<div class="form_create">
+    <form action="CreateConkr" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="P_art" name="p_art" />
+        <span class="text-danger">@ViewData["err"]</span>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Категория: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@Model.P_categ" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Техника: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@ViewBag.Tech" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Наименование: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@Model.P_name" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Цена, руб: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@Model.P_price" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Производитель: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@Model.P_prod" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label class="control-label">Изображение: </label>
+            </div>
+            <input disabled type="text" class="form-control" value="@Model.P_img" />
+        </div>
+
+
+        @switch (Model.P_categ)
+        {
+            case "Paints":
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Тип: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="1" name="pai_type" />
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Цвет: </label>
+                    </div>
+                    <input type="color" class="form-control" tabindex="2" name="pai_color" />
+                    <input type="checkbox" name="colored" value="colored" /><span> Много цветов</span>
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Объем, мл: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="3" name="pai_volume" />
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Количество цветов: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="4" name="pai_quant" />
+                </div>
+                break;
+
+            case "Brushes":
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Материал: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="1" name="b_mater" />
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Номер: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="2" name="b_numb" />
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Форма: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="3" name="b_form" />
+                </div>
+                break;
+            case "Papers":
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Тип: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="1" name="pap_type" />
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form1">
+                        <label class="control-label">Формат: </label>
+                    </div>
+                    @Html.DropDownList("pap_format", new SelectList(ViewBag.Formats))
+                </div>
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Плотность: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="3" name="pap_density" />
+                </div>
+                break;
+            case "Implements":
+                <div class="create_form_block">
+                    <div class="label_form">
+                        <label class="control-label">Тип: </label>
+                    </div>
+                    <input type="text" class="form-control" tabindex="1" name="i_type" />
+                </div>
+                break;
+        }
+
+        <div class="create_form_block">
+            <button type="submit" value="Добавить" class="create_but">Добавить</button>
+        </div>
+    </form>
+</div>
+
+<div class="back">
+    <a asp-action="Index">Назад к списку</a>
+</div>
+

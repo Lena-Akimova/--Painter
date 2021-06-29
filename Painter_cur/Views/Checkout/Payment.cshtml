@@ -1,0 +1,65 @@
+﻿@model Painter_cur.Models.Order
+
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+<form asp-action="Payment" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="c_code" value="@ViewBag.client.c_code" />
+
+    <div class="bask_content">
+        <div class="first_col">
+
+            <div class="table_bask">
+                <div class="bask_table">
+                    <div class="prod_row">
+                        <div class="inf_prod_td">
+                            <span class="cl_data_lab"> Данные покупателя</span>
+                            <span class="name_prod">@ViewBag.client.c_secondn @ViewBag.client.c_firstn @ViewBag.client.c_middlen</span>
+                            <span class="inf_prod">@ViewBag.client.c_email</span>
+                            <span class="inf_prod">@ViewBag.client.c_adress</span>
+                            <div class="deliv_radio_box">
+                                <div><input checked type="radio" name="o_delivery" value="Самовывоз" /> Самовывоз</div>
+                                <div><input type="radio" name="o_delivery" value="Почта" /> Почта</div>
+                                <div><input type="radio" name="o_delivery" value="Курьер" /> Курьер</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="back_bask">
+                <a asp-action="Index" asp-controller="ShoppingCard"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+    <path fill-rule="evenodd" d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z" />
+    <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
+     </svg>Назад в козину</a>
+            </div>
+        </div>
+
+        <div class="total_box_buy">
+
+            <div id="non-emty">
+                <span class="total">Товаров в заказе:</span>
+                <span id="cart-status">
+                    @ViewData["count"]  шт.
+                </span>
+                <span class="total">Итого к оплате:</span>
+                <span id="cart-total">
+                    @ViewData["sum"] руб.
+                </span>
+                <span class="total">Промокод ( FREE ):</span>
+                <input type="text" name="promo" class="promo_inp" />
+
+                <button class="add_bask_but" type="submit">
+                    Оплатить
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+

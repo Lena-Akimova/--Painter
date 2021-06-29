@@ -1,0 +1,144 @@
+﻿@model Painter_cur.Models.Product
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<div class="form_create">
+    <h3>Вы уверены, что хотите удалить товар?</h3>
+    <div class="box_del">
+        <dl class="det_tab">
+            <dt class="name">
+                @Html.DisplayNameFor(model => model.P_categ)
+            </dt>
+            <dd class="value">
+                @Html.DisplayFor(model => model.P_categ)
+            </dd>
+            <dt class="name">
+                @Html.DisplayNameFor(model => model.P_name)
+            </dt>
+            <dd class="value">
+                @Html.DisplayFor(model => model.P_name)
+            </dd>
+            <dt class="name">
+                @Html.DisplayNameFor(model => model.P_price)
+            </dt>
+            <dd class="value">
+                @Html.DisplayFor(model => model.P_price)
+            </dd>
+            <dt class="name">
+                @Html.DisplayNameFor(model => model.P_prod)
+            </dt>
+            <dd class="value">
+                @Html.DisplayFor(model => model.P_prod)
+            </dd>
+            <dt class="name">
+                @Html.DisplayNameFor(model => model.P_img)
+            </dt>
+            <dd class="value">
+                @Html.DisplayFor(model => model.P_img)
+            </dd>
+
+
+            @if (ViewBag.KonkProd != null)
+            {
+                @switch (Model.P_categ)
+                {
+                    case "Paints":
+                        <dt class="name">
+                            <label class="control-label">Тип </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pai_type</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Цвет </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pai_color</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Объем, мл  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pai_volume</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Количество цветов  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pai_quant</span>
+                        </dd>
+
+                        break;
+
+                    case "Brushes":
+                        <dt class="name">
+                            <label class="control-label">Материал  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.b_mater</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Номер  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.b_numb</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Форма  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.b_form</span>
+                        </dd>
+                        break;
+
+                    case "Papers":
+                        <dt class="name">
+                            <label class="control-label">Тип  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pap_type</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Формат  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pap_format</span>
+                        </dd>
+                        <dt class="name">
+                            <label class="control-label">Плотность  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.pap_density</span>
+                        </dd>
+
+                        break;
+                    case "Implements":
+                        <dt class="name">
+                            <label class="control-label">Тип  </label>
+                        </dt>
+                        <dd class="value">
+                            <span class="form-control">@ViewBag.KonkProd.i_type</span>
+                        </dd>
+                        break;
+                }}
+        </dl>
+    </div>
+
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="P_art" />
+        <button type="submit" value="Удалить" class="create_but">Удалить</button>
+    </form>
+
+
+</div>
+<div class="back">
+    <a asp-action="Index"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+    <path fill-rule="evenodd" d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z" />
+    <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
+</svg>Назад к списку</a>
+</div>
+

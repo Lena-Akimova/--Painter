@@ -1,0 +1,134 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Интересно";
+}
+
+@model List<Product>
+
+
+
+<div class="main_text_box">
+
+    <div>
+        <h1 style="background: white;color:navy;">Техники рисования акварелью</h1>
+    </div>
+    <div>
+        Существуют следующие техники работы с акварельными красками:
+    </div>
+    <div class="list_box" style="font-weight: 600; color:#6c8aae;">
+        <ul class="list_text" style="list-style-type:circle;">
+            <li>Акварель по-сухому (итальянская акварель);</li>
+            <li>Акварель по-мокрому (английская акварель);</li>
+            <li>Акомбинированная (смешанная) техника;</li>
+            <li>Акварель по фрагментарно увлажненной бумаге.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Акварель по-сухому (итальянская акварель);</h2>
+    </div>
+    <div>
+        Отличная техника, красиво и сложно, но если постараться или набить руку, то выйдет что-то достойное. Исправить ничего нельзя.
+        <div>
+            <img src="~/images/кит.jpg" width="300" />
+        </div>
+        <div>
+            <h3>Этапы для  данной техники:</h3>
+            <div>
+                <ul class="list_text">
+                    <li>Первый </li>
+                    <li>Второй</li>
+                    <li>Третий</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div>
+        <h2>Акварель по-мокрому (итальянская акварель);</h2>
+    </div>
+    <div>
+        Отличная техника, красиво и сложно, но если постараться или набить руку, то выйдет что-то достойное. Исправить наверное можно пока не высохло.
+        <div>
+            <img src="~/images/груша.jpg" width="300" />
+        </div>
+        <div>
+            <h3>Этапы для  данной техники:</h3>
+            <div>
+                <ul class="list_text">
+                    <li>Первый </li>
+                    <li>Второй</li>
+                    <li>Третий</li>
+                    <li>Четвертый</li>
+                    <li>Пятый</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div>
+        <h2>Смешанная техника</h2>
+    </div>
+    <div>
+        Отличная техника, красиво и сложно, но если постараться или набить руку, то выйдет что-то достойное. Исправить наверное можно пока не высохло.
+        <div>
+            <img src="~/images/лимончики.jpg" width="300" />
+        </div>
+        <div>
+            <h3>Этапы для  данной техники:</h3>
+            <div>
+                <ul class="list_text">
+                    <li>Первый </li>
+                    <li>Второй</li>
+                    <li>Третий</li>
+                    <li>Четвертый</li>
+                    <li>Пятый</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div style="color: navy">
+        Рисуйте, а магазин товаров для творчества "Пэинтер" поможет найти лучшие материалы для создания ваших произведений искусства.
+    </div>
+
+</div>
+<div style="margin-left:50px; margin-right: 50px;">
+    <div class="title_inter"><h2>Товары для рисования акварелью</h2></div>
+
+    <div class="inter_prod">
+        <div class="brows_tab">
+            @if (Model != null)
+            {
+                    <div class="news-row">
+                        @foreach (var pr in Model)
+                        {
+                            <div class="prod_cell">
+                                <a asp-controller="Store" asp-action="Deteils" asp-route-p_art="@pr.P_art">
+                                    <div class="img_box">
+                                        <img src="/@pr.P_img" width="96" height="96" alt="">
+                                    </div>
+
+                                    <div class="caption_box">
+                                        <div class="name"> @pr.P_name</div>
+                                        <span style="">@pr.P_price руб</span>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+             }
+        </div>
+
+        <div class="back">
+            <a asp-controller="Store" asp-action="Browse" asp-route-tech="Акварель">Смотреть ещё...</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Результаты запроса";
+}
+
+@using Painter_cur.Models
+
+@model List<List<Product>>
+
+    <div style="display:flex; flex-direction:row;">
+        <div>
+            <aside>
+                <div class="aside-menu-block">
+                    <nav>
+                        <ul class="aside-menu">
+                            <li class="technics">Категории</li>
+
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Paints">Краски</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Brushes">Кисточки</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Papers">Бумага</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Implements">Другое</a></li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <ul class="aside-menu">
+                            <li class="technics">ТЕХНИКИ</li>
+
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акварель">Акварель</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акрил">Акрил</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Батик">Батик</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Гуашь">Гуашь</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Масляная живопись">Масло</a></li>
+                            <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Пастель">Пастель</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+            </div>
+                <div>
+                    <section>
+
+                        <h2>@ViewData["Category"]</h2>
+                        <span style="font-size:25px;">@ViewBag.empty</span>
+
+                        <div class="brows_tab" >
+                            @if (Model != null)
+                            {
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="news-row" >
+                                        @foreach (var pr in Model[i])
+                                        {
+                                            <div class="prod_cell">
+                                                <a asp-controller="Store" asp-action="Deteils" asp-route-p_art="@pr.P_art">
+                                                    <div class="img_box" >
+                                                        <img src="/@pr.P_img" width="96" height="96" alt="" >
+                                                    </div>
+
+                                                    <div class="caption_box" >
+                                                       <div class="name"> @pr.P_name</div>
+                                                        <span  style="">@pr.P_price руб</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                }}
+                        </div>
+                    </section>
+                    </div>
+                    </div>

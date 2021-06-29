@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <title> Пэинтер - магазин для творческих ребят</title>
+    <link rel="shortcut icon" href="~/images/icons/fiveico.ico" type="image/x-icon">
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+
+            $.get("/ShoppingCard/TotalCount", {},
+                function (data) {
+                    $('#cart-status').text(data.tc);
+                });
+        });
+
+    </script>
+
+</head>
+<body>
+    <div class="Wrapper">
+        <header class="header">
+            <table class="head_table" width="100%" heigh="100">
+                <tr>
+                    <td width="39%" valign="bottom" align="left">
+                        <div class="search_form">
+                            <form name="search" asp-controller="Store" asp-action="Browse" metod="get">
+                                <input type="text" name="q" placeholder="Что ищем?" class="search_inp">
+                                <button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 13">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <td width="33%">
+                        <div class="logo_block">
+                            <a id="head" asp-controller="Home" asp-action="Index" ><img src="~/images/icons/lab2.jpg" alt=" " class="logo"></a>
+                        </div>
+                    </td>
+                    <td width="20%" align="right" valign="bottom">
+                        <div class="pers_bask_comp">
+
+
+
+                            <ul class="list_func">
+                                <li>
+                                    <div class="dropdown" >
+                                        <a href="#" class="dropbtn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            </svg>
+                                        </a>
+                                        <div class="dropdown-content">
+                                            @if (ViewData["name"] == null)
+                                            {
+                                                <a asp-controller="Account" asp-action="LogOn">Вход</a>
+                                                <a asp-controller="Account" asp-action="Register">Регистрация</a>
+                                            }
+                                            else if ((string)ViewData["role"] == "admin")
+                                            {
+                                                <span>Админ @ViewData["name"]</span>
+
+                                                <a asp-controller="StoreManager" asp-action="Index">Редактор товаров</a>
+                                                <a asp-controller="Checkout" asp-action="MyOrders">Мои заказы</a>
+                                                <a asp-controller="Account" asp-action="Exit" id="exit">Выйти</a>
+                                            }
+                                            else
+                                            {
+                                                <span>Привет, @ViewData["name"]</span>
+
+                                                <a asp-controller="Checkout" asp-action="MyOrders">Мои заказы</a>
+                                                <a asp-controller="Account" asp-action="Profile" asp-route-cl_log="@ViewData["name"]">Личные данные</a>
+                                                <a asp-controller="Account" asp-action="Exit" id="exit">Выйти</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a asp-controller="ShoppingCard" asp-action="Index">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+                                            <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z" />
+                                        </svg>
+                                        <span>
+                                            (
+                                            <span id="cart-status"></span>
+                                            )
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </header>
+        <nav>
+            <ul class="top-menu">
+                <li class="catalog"><a class="cat" asp-controller="Store" asp-action="Catalog" >Каталог</a></li>
+                <li><a asp-controller="Home" asp-action="Interesting"  >Интересно</a></li>
+                <li><a asp-controller="Home" asp-action="Delivery"  >Доставка</a></li>
+                <li><a asp-controller="Home" asp-action="Payment"  >Оплата</a></li>
+            </ul>
+        </nav>
+        <div class="head">
+            <h1>@ViewBag.Title</h1>
+        </div>
+
+
+
+        @RenderBody()
+
+
+    </div>
+
+    <div>
+        <footer>
+            <table class="footer">
+                <tr>
+                    <td class="sitemap">
+                        <h3>
+                            САЙТМАП
+                        </h3>
+                        <div>
+                            <a asp-controller="Home" asp-action="Index"   >Главная</a>
+                            <a asp-controller="Store" asp-action="Browse"  >Каталог</a>
+                            <a asp-controller="Home" asp-action="Interesting"   >Интересно</a>
+                        </div>
+                        <div>
+                            <a asp-controller="Home" asp-action="Delivery"    >Доставка</a>
+                            <a asp-controller="Home" asp-action="Payment"    >Оплата</a>
+                            <a asp-controller="Home" asp-action="Index"    >Контакты</a>
+                        </div>
+                    </td>
+                    <td class="social">
+                        <h3>МЫ В СОЦСЕТЯХ</h3>
+                        <div class="images">
+                            <a href="http://vk.com/"><img src="~/images/icons/vk-circled.png" alt="LOGO" class="vk"></a>
+                            <a href="http://facebook.com/"><img src="~/images/icons/face.png" alt="LOGO" class="facebook"></a>
+                            <a href="http://instagram.com/"><img src="~/images/icons/inst.png" alt="LOGO" class="instagram"></a>
+                        </div>
+                    </td>
+                    <td class="footer-logo">
+                        <a href="/"><img src="~/images/icons/copyr.png" alt="painter logo" width="250" height="25"></a>
+                        <p>Copyright © 2021 Painter. <a href="http://vk.com/hlebnaiacroshka"> &hearts; hlebnaiacroshka</a> creation</p>
+                    </td>
+
+                </tr>
+            </table>
+        </footer>
+        </div>
+</body>
+</html>
+
+

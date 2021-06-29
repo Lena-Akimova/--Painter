@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Каталог";
+}
+
+<table class="page">
+    <tr>
+        <td valign="top" height="400">
+            <aside>
+                <nav>
+                    <ul class="aside-menu">
+                        <li class="technics">КАТЕГОРИИ</li>
+
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Paints">Краски</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Brushes">Кисточки</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Papers">Бумага</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-categ="Implements">Другое</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </td>
+        <td valign="top"  height="400">
+            <aside class="aside-centr">
+                <nav>
+                    <ul class="aside-menu">
+                        <li class="technics">ТЕХНИКИ</li>
+
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акварель">Акварель</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акрил">Акрил</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Батик">Батик</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Гуашь">Гуашь</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Масляная живопись">Масло</a></li>
+                        <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Пастель">Пастель</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </td>
+    </tr>
+</table>

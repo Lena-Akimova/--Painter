@@ -1,0 +1,127 @@
+﻿@model Painter_cur.Models.Client
+
+@{
+    ViewBag.Title = "Личные данные";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#par").keyup(function () {
+
+            $(".repeat_par").fadeIn("slow");
+            $(".create_but").attr("disabled", true);
+        });
+
+
+        $("#same_par").keyup(function () {
+
+            var par = $("#par").val();
+            var spar = $("#same_par").val();
+
+            if (par != spar) {
+                $("#valid_par").text("Пароли не совпадают");
+                $(".create_but").attr("disabled", true);
+                $(".repeat_par").css("border", "solid 1px red");
+                $("#valid_par").css("color", "red");
+            }
+            else {
+
+                $("#valid_par").text("OK");
+                $(".create_but").removeAttr("disabled");
+                $(".repeat_par").css("border", "solid 1px greenyellow");
+                $("#valid_par").css("color", "greenyellow");
+            }
+        });
+
+    });
+</script>
+
+
+<form class="reg_form" asp-action="Profile" asp-controller="Account" enctype="multipart/form-data">
+    <input type="hidden" asp-for="c_role" />
+    <input type="hidden" asp-for="c_code" />
+
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="prof_box">
+        <div style="color:#0094ff;">@ViewData["mes"]</div>
+        <div class="reg_div_three" style="display:flex; flex-direction:row">
+            <div>
+                <div class="lab">
+                    <label asp-for="c_firstn">Имя</label><br />
+                </div>
+                <input type="text" asp-for="c_firstn" />
+                <span asp-validation-for="c_firstn"   class="text-danger" style="display:block" />
+            </div>
+            <div>
+                <div class="lab">
+                    <label asp-for="c_secondn">Фамилия</label><br />
+                </div>
+                <input type="text" asp-for="c_secondn" />
+                <span asp-validation-for="c_secondn"class="text-danger" />
+            </div>
+            <div>
+                <div class="lab">
+                    <label asp-for="c_middlen">Отчество</label><br />
+                </div>
+                <input type="text" asp-for="c_middlen" />
+                <span asp-validation-for="c_middlen" class="text-danger"/>
+            </div>
+        </div>
+        <div class="reg_div_two" style="display:flex; flex-direction:row">
+            <div>
+                <div class="lab">
+                    <label asp-for="c_adress">Адрес доставки </label><br />
+                </div>
+                <input type="text" asp-for="c_adress" />
+                <span asp-validation-for="c_adress" class="text-danger" style="display:block" />
+            </div>
+            <div>
+                <div class="lab">
+                    <label asp-for="c_email">Эл.почта </label><br />
+                </div>
+                <input disabled type="text" asp-for="c_email" value="@Model.c_email" />
+                <span asp-validation-for="c_email" />
+            </div>
+        </div>
+        <div class="reg_div_par" style="display:flex; flex-direction:row">
+            <div class="col_one">
+                <div>
+                    <div class="lab">
+                        <label asp-for="c_login">Логин</label><br />
+                    </div>
+                    <input disabled type="text" asp-for="c_login" value="@Model.c_login" />
+                    <span asp-validation-for="c_login" />
+                </div>
+                <div>
+                    <div class="lab">
+                        <label asp-for="c_password">Пароль</label><br />
+                    </div>
+                    <input id="par" asp-for="c_password" value="@Model.c_password"/>
+                    <span asp-validation-for="c_password" class="text-danger" />
+                </div>
+
+                <div>
+                    <div class="repeat_par">
+                        <div class="lab">
+                            <label>Повторите пароль</label><br />
+                        </div>
+                        <input id="same_par" type="password" />
+                        <span id="valid_par" style=" margin: 20px 0px; display: block;  "></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="create_but">Сохранить изменения</button>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

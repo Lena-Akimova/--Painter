@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Painter_cur.Models.Product
+
+@{
+    ViewData["Title"] = "Добавить новый";
+}
+<div class="form_create">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <span class="text-danger">@ViewData["err"]</span>
+
+        <div class="create_form_block">
+            <div class="label_form1 ">
+                <label asp-for="P_categ" class="control-label">Категория: </label>
+            </div>
+            @Html.DropDownList("P_categ", new SelectList(ViewBag.Categories))
+        </div>
+        <div class="create_form_block">
+            <div class="label_form1">
+                <label class="control-label">Технология: </label>
+            </div>
+            @Html.DropDownList("P_tech", new SelectList(ViewBag.Techiques))
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_name" class="control-label">Наименование: </label>
+            </div>
+            <input asp-for="P_name" class="form-control" tabindex="2" />
+            <span asp-validation-for="P_name" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_price" class="control-label">Цена, руб: </label>
+            </div>
+            <input asp-for="P_price" class="form-control" tabindex="3" />
+            <span  asp-validation-for="P_price" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_prod" class="control-label">Производитель: </label>
+            </div>
+            <input asp-for="P_prod" class="form-control" tabindex="4" />
+            <span asp-validation-for="P_prod" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_img" class="control-label">Изображение: </label>
+            </div>
+            <input name="P_img" type="file" class="form-control" />
+            <span asp-validation-for="P_img" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <button type="submit" value="Добавить" class="create_but">Добавить</button>
+        </div>
+    </form>
+</div>
+
+<div class="back">
+    <a asp-action="Index">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path fill-rule="evenodd" d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z" />
+            <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
+        </svg> Назад к списку
+    </a>
+</div>
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

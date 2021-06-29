@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Painter_cur.Models.Product>
+
+@{
+    ViewData["Title"] = "Управление";
+}
+
+<section class="section_manager">
+
+        <form name="create_butt_form" action="/StoreManager/Create" metod="post">
+            <button class="create_but" type="submit">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
+                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
+                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg> <span>Добавить новый</span>
+            </button>
+        </form>
+    
+    <div>
+<table class="table_manager" border="1">
+    <thead >
+        <tr>
+            <th>
+                Категория
+            </th>
+            <th>
+                Наименование
+            </th>
+            <th>
+                Цена, руб
+            </th>
+            <th>
+                Производитель
+            </th>
+            <th>
+                Изображение
+            </th>
+            @*<th>
+                Количество на складе
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P_categ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P_price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P_prod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P_img)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.P_art">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.P_art">Подробности</a> |
+                    <a asp-action="Delete" asp-route-id="@item.P_art">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+        </div>
+</section>

@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Главная";
+}
+
+@model List<List<Product>>
+
+<div style="display:flex; flex-direction:row;">
+    <div>
+        <aside>
+            <nav>
+                <ul class="aside-menu">
+                    <li class="technics">ТЕХНИКИ</li>
+
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акварель">Акварель</a></li>
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Акрил">Акрил</a></li>
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Батик">Батик</a></li>
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Гуашь">Гуашь</a></li>
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Масляная живопись">Масло</a></li>
+                    <li><a asp-controller="Store" asp-action="Browse" asp-route-tech="Пастель">Пастель</a></li>
+                </ul>
+            </nav>
+        </aside>
+    </div>
+    <div>
+        <section>
+            <blockquote>
+                <p>
+                    НОВОЕ ПОСТУПЛЕНИЕ!!! НОВОЕ ПОСТУПЛЕНИЕ!!! НОВОЕ ПОСТУПЛЕНИЕ!!! НОВОЕ ПОСТУПЛЕНИЕ!!!
+                </p>
+            </blockquote>
+
+            <div class="prod_cell" style=" margin-left: 25%; width: 450px; padding: 10px 0px 30px 0px ; margin-top:20px;">
+                <a asp-controller="Store" asp-action="Deteils" asp-route-p_art="@ViewBag.New.P_art">
+                    <div class="img_box" style="padding: 30px 0px 30px 20%">
+                        <img src="/@ViewBag.New.P_img" height="280" alt="">
+                    </div>
+                    <div class="caption_box" style="margin-left: 16%; font-size: 25px; font-weight: 700; max-width: 300px;">
+                        <div class="name" style="font-size: 25px;"> @ViewBag.New.P_name</div>
+                        <span>@ViewBag.New.P_price руб</span>
+                    </div>
+                </a>
+            </div>
+
+                    <h2>Часто покупают</h2>
+
+
+                    <div class="brows_tab">
+                        @if (Model != null)
+                        {
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <div class="news-row">
+                                    @foreach (var pr in Model[i])
+                                    {
+                                        <div class="prod_cell">
+                                            <a asp-controller="Store" asp-action="Deteils" asp-route-p_art="@pr.P_art">
+                                                <div class="img_box">
+                                                    <img src="/@pr.P_img" width="96" height="96" alt="">
+                                                </div>
+
+                                                <div class="caption_box">
+                                                    <div class="name"> @pr.P_name</div>
+                                                    <span>@pr.P_price руб</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            }}
+                    </div>
+
+</section>
+    </div>
+</div>

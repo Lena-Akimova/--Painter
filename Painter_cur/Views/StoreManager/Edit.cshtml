@@ -1,0 +1,170 @@
+﻿@model Painter_cur.Models.Product
+
+@{
+    ViewData["Title"] = "Изменение";
+}
+
+
+<div class="form_create">
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="P_art" name="p_art" />
+        <input type="hidden" asp-for="P_categ" />
+        <span class="text-danger">@ViewData["err"]</span>
+
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_categ" class="control-label">Категория: </label>
+            </div>
+            <input name="P_categ" disabled type="text" class="form-control" value="@Model.P_categ" />
+        </div>
+        <div class="create_form_block">
+            <div class="label_form1">
+                <label class="control-label">Технология: </label>
+            </div>
+            @Html.DropDownList("P_tech", new SelectList(ViewBag.Techiques, ViewBag.tech))
+        </div>
+
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_name" class="control-label"> Наименование:</label>
+            </div>
+            <input asp-for="P_name" class="form-control" />
+            <span asp-validation-for="P_name" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_price" class="control-label"> Цена, руб:</label>
+            </div>
+            <input asp-for="P_price" class="form-control" />
+            <span asp-validation-for="P_price" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_prod" class="control-label"> Производитель:</label>
+            </div>
+            <input asp-for="P_prod" class="form-control" />
+            <span asp-validation-for="P_prod" class="text-danger"></span>
+        </div>
+        <div class="create_form_block">
+            <div class="label_form">
+                <label asp-for="P_img" class="control-label"> Изображение:</label>
+            </div>
+            <input name="P_img" type="file" value="@Model.P_img" class="form-control" />
+            <span asp-validation-for="P_img" class="text-danger"></span>
+        </div>
+
+        @if (ViewBag.KonkProd != null)
+        {
+            @switch (Model.P_categ)
+            {
+                case "Paints":
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Тип: </label>
+                        </div>
+                        <input type="text" class="form-control" tabindex="1" value="@ViewBag.KonkProd.pai_type" name="pai_type" />
+                    </div>
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Цвет: </label>
+                        </div>
+
+                        <input type="color" class="form-control" value="@ViewBag.KonkProd.pai_color" tabindex="2" name="pai_color" />
+                        @if (ViewBag.KonkProd.pai_color == "colored")
+                        {
+                            <input type="checkbox" name="colored" value="colored" checked /><span> Много цветов</span>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="colored" value="colored" /><span> Много цветов</span>
+                        }
+                    </div>
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Объем, мл: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.pai_volume" tabindex="3" name="pai_volume" />
+                    </div>
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Количество цветов: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.pai_quant" tabindex="4" name="pai_quant" />
+                    </div>
+                    break;
+
+                case "Brushes":
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Материал: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.b_mater" tabindex="1" name="b_mater" />
+                    </div>
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Номер: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.b_numb" tabindex="2" name="b_numb" />
+                    </div>
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Форма: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.b_form" tabindex="3" name="b_form" />
+                    </div>
+                    break;
+                case "Papers":
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Тип: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.pap_type" tabindex="1" name="pap_type" />
+                    </div>
+
+                    <div class="create_form_block">
+                        <div class="label_form1">
+                            <label class="control-label">Формат: </label>
+                        </div>
+                        @Html.DropDownList("pap_format", new SelectList(ViewBag.Formats, ViewBag.KonkProd.pap_format))
+                    </div>
+
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Плотность: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.pap_density" tabindex="3" name="pap_density" />
+                    </div>
+                    break;
+                case "Implements":
+                    <div class="create_form_block">
+                        <div class="label_form">
+                            <label class="control-label">Тип: </label>
+                        </div>
+                        <input type="text" class="form-control" value="@ViewBag.KonkProd.i_type" tabindex="1" name="i_type" />
+                    </div>
+                    break;
+            }}
+        else
+        {
+            <span class="text-danger">Нет конкретного товара!</span>
+
+            <div style="padding:20px;">
+                <a asp-action="CreateConkr" asp-controller="StoreManager" asp-route-part="@Model.P_art"> Добавить </a>
+            </div>
+
+        }
+        <div class="create_form_block">
+            <button type="submit" value="Save" class="create_but"> Сохранить изменения </button>
+        </div>
+    </form>
+</div>
+
+
+<div class="back">
+    <a asp-action="Index"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+    <path fill-rule="evenodd" d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z" />
+    <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
+</svg>Назад к списку</a>
+</div>
